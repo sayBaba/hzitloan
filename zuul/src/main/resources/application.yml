@@ -1,0 +1,40 @@
+server:
+  port: 2222 #服务端口
+
+spring:
+  application:
+    name: app-zuul-gateway #指定服务名
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+  eureka:
+    enabled: true
+
+###服务注册到eureka注册中心的地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka/
+
+    ###因为该应用为服务提供者，是eureka的一个客户端，需要注册到注册中心
+    register-with-eureka: true
+
+    ###是否需要从eureka上检索服务
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}###${server.port} #指定实例id
+
+zuul:
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000   #socket超时
+
+  routes: #定义服务转发规则
+    pay-service: #item-service这个名字是任意写的
+      path: /loan-service/** #
+      serviceid: hzit-loan
+

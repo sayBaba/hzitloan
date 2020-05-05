@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="repay" />
+        <module name="user" />
+        <module name="loan" />
+        <module name="crawler" />
+        <module name="hzitloan" />
+        <module name="manager" />
+        <module name="zuul" />
+        <module name="pay" />
+        <module name="adv" />
+        <module name="app" />
+        <module name="eureka" />
+        <module name="config" />
+        <module name="credit" />
+        <module name="common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
+      <module name="hzitloan" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="adv" options="-parameters" />
+      <module name="app" options="-parameters" />
+      <module name="common" options="-parameters" />
+      <module name="config" options="-parameters" />
+      <module name="crawler" options="-parameters" />
+      <module name="credit" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="loan" options="-parameters" />
+      <module name="manager" options="-parameters" />
+      <module name="pay" options="-parameters" />
+      <module name="repay" options="-parameters" />
+      <module name="user" options="-parameters" />
+      <module name="zuul" options="-parameters" />
+    </option>
+  </component>
+</project>
