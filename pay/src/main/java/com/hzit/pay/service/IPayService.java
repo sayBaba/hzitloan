@@ -24,10 +24,25 @@ public interface IPayService {
     public PayChannel querychannelMchId(String mchId, String channelId);
 
     /**
+     * 查询支付流水
+     * @param payOrderId
+     * @return
+     */
+    public PayOrder queryPayOrder(String payOrderId);
+
+
+    /**
      * 创建支付流水
      * @param payOrder
      */
     public PayOrder createPayOrder(JSONObject payOrder);
+
+
+    /**
+     * 更新支付流水
+     * @param payOrder
+     */
+    public PayOrder updatePayOrder(PayOrder payOrder);
 
 
 }

@@ -14,13 +14,13 @@
         <option value="$PROJECT_DIR$/crawler/pom.xml" />
         <option value="$PROJECT_DIR$/credit/pom.xml" />
         <option value="$PROJECT_DIR$/loan/pom.xml" />
-        <option value="$PROJECT_DIR$/pay/pom.xml" />
         <option value="$PROJECT_DIR$/adv/pom.xml" />
         <option value="$PROJECT_DIR$/manager/pom.xml" />
         <option value="$PROJECT_DIR$/repay/pom.xml" />
         <option value="$PROJECT_DIR$/config/pom.xml" />
         <option value="$PROJECT_DIR$/app/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/task/pom.xml" />
       </list>
     </option>
   </component>

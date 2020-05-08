@@ -48,6 +48,8 @@ public class PayServiceImpl implements IPayService {
     @Override
     public PayOrder createPayOrder(JSONObject po) {
 
+
+
         PayOrder payOrder = new PayOrder();
 
         payOrder.setMchOrderNo(po.getString("mchOrderNo"));
@@ -62,6 +64,8 @@ public class PayServiceImpl implements IPayService {
         payOrder.setNotifyUrl(po.getString("notifyUrl"));
         payOrder.setNotifyCount((byte) 0);
         Date date = new Date();
+
+        payOrder.setSubject(po.getString("subject"));
 
         payOrder.setCreateTime(date);
         payOrder.setUpdateTime(date);

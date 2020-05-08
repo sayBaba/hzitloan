@@ -7,14 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="repay" />
-        <module name="user" />
         <module name="loan" />
         <module name="crawler" />
-        <module name="hzitloan" />
         <module name="manager" />
+        <module name="user" />
+        <module name="hzitloan" />
         <module name="zuul" />
-        <module name="pay" />
         <module name="adv" />
+        <module name="task" />
         <module name="app" />
         <module name="eureka" />
         <module name="config" />
@@ -25,6 +25,7 @@
     <bytecodeTargetLevel>
       <module name="demo" target="1.8" />
       <module name="hzitloan" target="1.5" />
+      <module name="pay" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -41,6 +42,7 @@
       <module name="manager" options="-parameters" />
       <module name="pay" options="-parameters" />
       <module name="repay" options="-parameters" />
+      <module name="task" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="zuul" options="-parameters" />
     </option>

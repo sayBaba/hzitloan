@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hzit.common.constant.PayConstant;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 签名工具类
@@ -18,11 +19,13 @@ public class PayUtil {
      * @return
      */
     public static String makeRetData(Map retMap, String resKey) {
-        if(retMap.get(PayConstant.RETURN_PARAM_RETCODE).equals(PayConstant.RETURN_VALUE_SUCCESS)) {
-            String sign = PayDigestUtil.getSign(retMap, resKey, "payParams");
-            retMap.put(PayConstant.RESULT_PARAM_SIGN, sign);
-        }
-        return JSON.toJSONString(retMap);
+//        if(retMap.get(PayConstant.RETURN_PARAM_RETCODE).equals(PayConstant.RETURN_VALUE_SUCCESS)) {
+//            String sign = PayDigestUtil.getSign(retMap, resKey, "payParams");
+//            retMap.put(PayConstant.RESULT_PARAM_SIGN, sign);
+//        }
+        String sign = PayDigestUtil.getSign(retMap, resKey);
+//        retMap.put(PayConstant.RESULT_PARAM_SIGN, sign);
+        return sign;
     }
 
     /**
@@ -41,7 +44,7 @@ public class PayUtil {
      * @param params
      * @return
      */
-    public static boolean verifyPaySign(Map<String,Object> params, String key) {
+    public static boolean verifyPaySign(TreeMap<String,Object> params, String key) {
         String sign = (String)params.get("sign"); // 签名
         params.remove("sign");	// 不参与签名
         String checkSign = PayDigestUtil.getSign(params, key);

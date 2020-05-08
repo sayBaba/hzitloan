@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 支付接口
@@ -38,6 +39,13 @@ public class PayController {
     @Autowired
     private AlipayUtils alipayUtils;
 
+
+    public void createToken(){
+
+        //生成token，放入到redis，
+
+    }
+
     // entity,model-数据库  bean vo，domain, pojo-- sevice req-  resp -请求参数，返回参数 ，
 
     /**
@@ -48,7 +56,7 @@ public class PayController {
      *         //4.接口规范，json，http/https.restful风格
      *         //5.加密规则
      */
-    @RequestMapping("/api/pay/create_order")
+    @RequestMapping("/api/pay/create_pay")
     public RespVo pay(@RequestParam String params){
 
 
@@ -68,11 +76,11 @@ public class PayController {
         if (StringUtils.isEmpty(params)){
             respVo.setCode(-1);
             respVo.setMsg("参数为空");
-            respVo.setT(null);
+            respVo.setData(null);
             return respVo;
         }
 
-       //1.解析json
+        //1.解析json
         JSONObject po = JSONObject.parseObject(params);
 
         //2.参数空判断
@@ -107,48 +115,82 @@ public class PayController {
         }
 
         //验签
-
-        Map mapObj = JSONObject.parseObject(params,Map.class);
-
-
+        TreeMap mapObj = JSONObject.parseObject(params,TreeMap.class);
         boolean flag = PayUtil.verifyPaySign(mapObj,mchInfo.getReqKey());
-        if(!flag){
+        logger.info("flag = " + flag);
+        if(flag == false){
             respVo.setCode(-1);
             respVo.setMsg("签名失败" );
             return respVo;
         }
 
         //4.生成流水
+        //TODO, 检查商户订单号是否已经生成。
         PayOrder payOrder =  iPayService.createPayOrder(po);
 
 
         //5.根据选择支付方式调用对应的 支付公司的接口
 
-
         //TODO 改成策略模式
-        if("Alpay".equalsIgnoreCase(channelId)){
+        if("alipayWap".equalsIgnoreCase(channelId)){
 
             try {
                 String url = alipayUtils.mobilePay(payOrder);
+                respVo.setCode(0);
+                respVo.setMsg("请求成功");
+
+                JSONObject object = new JSONObject();
+                object.put("url",url);
+
+                object.put("payOrderId",payOrder.getPayOrderId());
+                respVo.setData(object);
+
+                //TODO返回参数要加密
+
+
+
                 //提交url
             } catch (AlipayApiException e) {
                 logger.error("AlipayApiException",e);
-                //TODO
-//                e.printStackTrace();
-            }
+                respVo.setCode(-1);
+                respVo.setMsg("系统繁忙");
+                return respVo;
 
+            }
 
         } else if("Wechat".equalsIgnoreCase(channelId)){
 
         }
 
-
-
-
-        return  null;
+        return  respVo;
         //返回参数
         //code , msg  data:{}
     }
+
+
+    /**
+     *
+     * 绑定银行的时候，完成签约
+     * 宝付支付
+     */
+    public void signing(){
+
+    }
+
+
+    /**
+     * 签约后，才能扣款 ，同步的
+     */
+    public void  withhold(){
+
+        //1.生成流水，、
+        //2.调用宝付的接口
+
+        //3.拿到结果更新。
+
+
+    }
+
 
 
 }

@@ -12,11 +12,18 @@ public class NotifyController {
     /**
      * 支付异步回调
      */
-    @RequestMapping("/pay/notify")
-    public void payNotify(){
+    @RequestMapping("/repay/notify")
+    public String payNotify(){
 
-        //获取支付结果
+        //1.获取支付结果
 
+        //2.验证签名
+
+        //3.更新还款流水状态
+
+        //4.返回success
+
+        return "返回success";
 
     }
 

@@ -14,7 +14,7 @@ public class RespVo<T> {
 
     private String  msg;  //提示信息
 
-    private T t;
+    private T data;
 
 
 }

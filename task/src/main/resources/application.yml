@@ -1,0 +1,8 @@
+server:
+  port: 5555
+
+
+###起个名字作为服务名称(该服务注册到eureka注册中心的名称，比如订单服务)
+spring:
+  application:
+    name: hzit-task

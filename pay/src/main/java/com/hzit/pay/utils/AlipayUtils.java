@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
 import com.hzit.pay.model.PayOrder;
 import org.springframework.stereotype.Component;
@@ -34,8 +36,8 @@ public class AlipayUtils {
                 "json","utf-8",AlipayPublicKey,"RSA2");
         AlipayTradeWapPayRequest request = new AlipayTradeWapPayRequest();
 
-        request.setNotifyUrl("http://127.0.0.1:4444/alipay/notify"); //后端异步通知，更新交易订单。  //TODO
-        request.setReturnUrl("http://127.0.0.1:4444/shop/showCode"); //支付完成，跳转此页面        //TODO
+        request.setNotifyUrl("http://hzit.free.idcfengye.com/alipay/notify"); //后端异步通知，更新交易订单。  //TODO
+        request.setReturnUrl("http://www.baidu.com"); //支付完成，跳转此页面        //TODO
 
         JSONObject jsonObject = new JSONObject();
 
@@ -77,6 +79,37 @@ public class AlipayUtils {
             return null;
         }
     }
+
+    /**
+     * 调用支付宝退款接口
+     * @param outTradeNo 交易订单号
+     * @param refundNo 退款流水
+     * @param amt 退款金额
+     * @return
+     */
+    public AlipayTradeRefundResponse getAlipayRefund(String outTradeNo, String refundNo,String amt){
+        AlipayClient alipayClient = new DefaultAlipayClient(alipayUrl,appId,privateKey,
+                "json","utf-8",AlipayPublicKey,"RSA2");
+
+        AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("refund_amount", amt);
+        jsonObject.put("out_request_no",refundNo);
+        jsonObject.put("out_trade_no",outTradeNo);
+        request.setBizContent(jsonObject.toJSONString());
+        AlipayTradeRefundResponse response = null;
+        try {
+            response = alipayClient.execute(request);
+
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+
+    }
+
+
 
 
 
